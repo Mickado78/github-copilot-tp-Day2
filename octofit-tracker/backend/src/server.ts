@@ -19,7 +19,10 @@ async function runDatabaseOperation<T>(operation: () => Promise<T>): Promise<T> 
 
 function getApiBaseUrl(): string {
   const codespaceName = process.env.CODESPACE_NAME;
-  return codespaceName ? `https://${codespaceName}-8000.app.github.dev` : 'http://localhost:8000';
+  if (codespaceName) {
+    return `https://${codespaceName}-8000.app.github.dev`;
+  }
+  return 'http://localhost:8000';
 }
 
 function createApp() {
